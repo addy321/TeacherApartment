@@ -1,0 +1,12 @@
+D:\.netItem\TeacherApartment\Servers\bin\Debug\netcoreapp3.1\Servers.deps.json
+D:\.netItem\TeacherApartment\Servers\bin\Debug\netcoreapp3.1\Servers.dll
+D:\.netItem\TeacherApartment\Servers\bin\Debug\netcoreapp3.1\Servers.pdb
+D:\.netItem\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.csprojAssemblyReference.cache
+D:\.netItem\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.csproj.CoreCompileInputs.cache
+D:\.netItem\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.AssemblyInfoInputs.cache
+D:\.netItem\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.AssemblyInfo.cs
+D:\.netItem\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.dll
+D:\.netItem\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.pdb
+D:\.netItem\TeacherApartment\Servers\bin\Debug\netcoreapp3.1\Model.dll
+D:\.netItem\TeacherApartment\Servers\bin\Debug\netcoreapp3.1\Model.pdb
+D:\.netItem\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.csproj.CopyComplete

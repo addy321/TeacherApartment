@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+
+<link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css" />
+<script type="text/javascript" src="/js/jQuery.js"></script>
+<script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/table.js"></script>
+<style>
+	.Add {
+		width: 400px;
+		border: 1px #cdb6b6 double;
+		border-radius: 15px;
+		padding: 20px;
+	}
+	</style>
+	<body>
+		<div class="container Add">
+			<div>
+				<h3>个人信息<small>请填入要修改的内容</small></h3>
+			</div>
+			<input type="email" name="account" style="margin: 20px 0px; width: 90%;" class="form-control" placeholder="账号" readonly="readonly">
+			<input type="email" name="password" style="margin: 20px 0px; width: 90%;" class="form-control" placeholder="密码">
+
+			<input type="email" name="sex" style="margin: 20px 0px; width: 90%;" class="form-control" placeholder="性别" readonly="readonly">
+			<input type="email" name="name" style="margin: 20px 0px; width: 90%;" class="form-control" placeholder="名字">
+
+			<button type="button" class="btn btn-primary" style="width: 100px;" onclick="update()">保存</button>
+
+		</div>
+	</body>
+</html>
+<script>
+	$.get("/Home/getTeacher", function (data) {
+		console.log(data)
+		$("input[name='account']").val(data.account)
+        $("input[name='password']").val(data.password)
+        $("input[name='name']").val(data.name)
+        $("input[name='sex']").val(data.sex==1?"男":"女")
+	});
+
+	function update(id) {
+        var password =$("input[name='password']").val().trim()
+        var name= $("input[name='name']").val().trim()
+        $.post("/Home/UpdateTeacher",
+            {
+				"password": password,
+                "name": name
+            },
+            function (data) {
+                if (data == 1) {
+                    alert("修改成功！")
+                    showData()
+                } else {
+                    alert("修改失败！")
+                }
+            });
+    }
+
+</script>

@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css" />
+<script type="text/javascript" src="/js/jQuery.js"></script>
+<script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/table.js"></script>
+<body>
+	<div class="container">
+		<div class="page-header">
+			<h1>教师申请公寓系统 <small>公告和消息</small></h1>
+		</div>
+	</div>
+</body>
+<script>
+	showData();
+	function showData() {
+		$.get("/Home/getAnnouncements", function (data) {
+			console.log(data)
+            var dataHtml=""
+            for (var i = 0; i < data.length; i++) {
+                dataHtml += '<div class="panel panel-primary"><div class="panel-body" >'+data[i].title
+                dataHtml += '<span style = "float:right" > ' + data[i].releaseTime + '</span ></div >'
+                dataHtml += '<div class="panel-footer">' + data[i].news + '</div></div >'
+			}
+            $(".container").append(dataHtml)
+		});
+	}
+</script>
+</html>

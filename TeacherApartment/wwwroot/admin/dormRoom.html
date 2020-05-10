@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css" />
+	<script type="text/javascript" src="/js/jQuery.js" ></script>
+	<script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.js" ></script>
+	<script type="text/javascript" src="/js/table.js" ></script>
+	<body>
+		<div class="container">
+			<div style="margin: 10px;display: inline-block;">
+				<button type="button" class="btn btn-primary glyphicon glyphicon-plus">新增</button>
+				<button type="button" class="btn btn-primary glyphicon glyphicon-repeat">刷新</button>
+			</div>
+			<table class="table table-bordered">
+			   <thead>
+			      <tr>
+			      </tr>
+			   </thead>
+			   <tbody>
+			 	</tbody>
+			</table>
+			
+		</div>
+	</body>
+	<script>
+        showData();
+        function showData() {
+            $.get("/Home/getRooms", function (data) {
+                GenerateTable(data, ListTitle, ListFeatures, ListAttributes)
+        });
+        }
+		var ListTitle=['编号','房间编号','大概位置','状态','操作']
+		var ListFeatures=[{'del':'删除'},{'update':'修改'}] 
+		var ListAttributes={'sex':["女","男"]}
+	</script>
+</html>

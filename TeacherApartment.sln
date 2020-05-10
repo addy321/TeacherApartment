@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeacherApartment", "TeacherApartment\TeacherApartment.csproj", "{21002B42-46E0-47B1-A4A5-2B8A6D6B6158}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{A9D37BE3-677F-4974-903D-FDEAD0B3C171}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servers", "Servers\Servers.csproj", "{EDD79EC2-7923-47F3-9997-6AD077CFA5FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21002B42-46E0-47B1-A4A5-2B8A6D6B6158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21002B42-46E0-47B1-A4A5-2B8A6D6B6158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21002B42-46E0-47B1-A4A5-2B8A6D6B6158}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21002B42-46E0-47B1-A4A5-2B8A6D6B6158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9D37BE3-677F-4974-903D-FDEAD0B3C171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9D37BE3-677F-4974-903D-FDEAD0B3C171}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9D37BE3-677F-4974-903D-FDEAD0B3C171}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9D37BE3-677F-4974-903D-FDEAD0B3C171}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD79EC2-7923-47F3-9997-6AD077CFA5FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD79EC2-7923-47F3-9997-6AD077CFA5FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD79EC2-7923-47F3-9997-6AD077CFA5FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD79EC2-7923-47F3-9997-6AD077CFA5FA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E41068EC-9617-456A-BC1D-E195AD8B9B44}
+	EndGlobalSection
+EndGlobal

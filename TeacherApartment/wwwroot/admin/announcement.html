@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css" />
+<script type="text/javascript" src="/js/jQuery.js"></script>
+<script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/table.js"></script>
+<body>
+	<div class="container">
+		<div style="margin: 10px;display: inline-block;">
+			<button type="button" class="btn btn-primary glyphicon glyphicon-plus" onclick="$('.Add').removeClass('hidden')">新增</button>
+			<button type="button" class="btn btn-primary glyphicon glyphicon-repeat">刷新</button>
+		</div>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="container Add hidden">
+
+		<div class="">
+			<h1>公布公告<small>请输入公告消息</small></h1>
+		</div>
+
+		<input type="email" name="title" style="margin: 20px 0px; width: 90%;" class="form-control" placeholder="标题">
+		<textarea rows="10" cols="30" style="margin: 0px; width: 742px; height: 251px;">
+			
+		</textarea>
+
+		<button type="button" class="btn btn-primary" style="width: 100px;" onclick="Add()">提交</button>
+		<button type="button" class="btn btn-primary" style="width: 100px;" onclick="$('.Add').addClass('hidden')">关闭</button>
+	</div>
+</body>
+<script>
+	showData();
+	function showData() {
+		$.get("/Home/getAnnouncements", function (data) {
+            console.log(data)
+			GenerateTable(data, ListTitle, ListFeatures, ListAttributes)
+		});
+	}
+
+    var JsonListDate = [{ "id": "1", "name": "张三", "age": "12", "sex": "0" }, { "id": "2", "name": "李四", "age": "13", "sex": "1" },]
+    var ListTitle = ['编号', '公告内容', '发布时间', '标题', '操作']
+	var ListFeatures = [{ 'del': '删除' }]
+	var ListAttributes = null
+
+    function Add() {
+        var title = $("input[name='title']").val().trim()
+        var news = $("textarea").val().trim()
+        $.post("/Home/AddAnnouncement", { "title": title, "news": news}, function (data) {
+            if (data == 1) {
+                alert("新增成功！")
+                showData()
+            } else {
+                alert("失败！")
+            }
+        });
+    }
+
+    function del(id) {
+        $.post("/Home/DelAnnouncements",
+            {
+                id: id,
+            },
+            function (data) {
+                if (data == 1) {
+                    alert("删除成功！")
+                    showData()
+                } else {
+                    alert("删除失败！")
+                }
+            });
+	}
+
+</script>
+</html>
+
+<style>
+	.Add {
+		position: absolute;
+		left: 50%; /**左边50%**/
+		top: 15%; /**顶部50%**/
+		margin-left: -400px; /**左移-50%**/
+		width: 800px;
+		border: 1px #cdb6b6 double;
+		border-radius: 15px;
+		background-color: #FFFFFF;
+		padding: 20px;
+	}
+</style>
