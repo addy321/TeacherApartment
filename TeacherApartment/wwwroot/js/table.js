@@ -13,13 +13,15 @@ function GenerateTable(JsonListDate,ListTitle,ListFeatures,Listmatch){
 			for(var datakey in data)
 			{
 				if (Listmatch != null) {
+					var ismatch = true;
 					for (var matchkey in Listmatch) {
 						if (matchkey == datakey) {
 							tbody += '<td>' + Listmatch[matchkey][data[datakey]] + '</td>'
-						} else {
-							tbody += '<td>' + data[datakey] + '</td>'
+							ismatch = false
 						}
 					}
+					if (ismatch)
+						tbody += '<td>' + data[datakey] + '</td>'
 				} else {
 					tbody += '<td>' + data[datakey] + '</td>'
                 }

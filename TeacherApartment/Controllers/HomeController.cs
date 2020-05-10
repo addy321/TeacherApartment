@@ -156,10 +156,10 @@ namespace TeacherApartment.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> getRooms(string roomNumber)
+        public async Task<JsonResult> getRooms(Room room)
         {
             //查询所有房间
-            var result = await _interfacel.getRooms(roomNumber);
+            var result = await _interfacel.getRooms(room);
             return Json(result);
         }
 
@@ -183,6 +183,35 @@ namespace TeacherApartment.Controllers
         {
             //修改房间状态
             var result = await _interfacel.updateRooms(room);
+            return Json(result);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> getCheckin(Checkin checkin)
+        {
+            var result = await _interfacel.getCheckin(checkin);
+            return Json(result);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> AddCheckin(Checkin checkin)
+        {
+            checkin.teacherAccount = GetSession("username");
+            checkin.prove = 1;
+            var result = await _interfacel.AddCheckin(checkin);
+            return Json(result);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> DelCheckin(int id)
+        { 
+            var result = await _interfacel.DelCheckin(id);
+            return Json(result);
+        }
+        [HttpPost]
+        public async Task<JsonResult> updateCheckin(Checkin checkin)
+        { 
+            var result = await _interfacel.updateCheckin(checkin);
             return Json(result);
         }
     }

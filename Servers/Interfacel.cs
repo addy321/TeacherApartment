@@ -29,12 +29,20 @@ namespace Servers
         //添加公告
         Task<int> AddAnnouncements(Announcement announcement);
         //所有房间
-        Task<List<Room>> getRooms(string roomNumber);
+        Task<List<Room>> getRooms(Room room);
         //删除房间
         Task<int> DelRooms(int id);
         //添加房间
         Task<int> AddRooms(Room room);
         //修改房间
         Task<int> updateRooms(Room room);
+        //所有住房记录
+        Task<List<Checkin>> getCheckin(Checkin checkin);
+        //删除记录
+        Task<int> DelCheckin(int id);
+        //添加记录
+        Task<int> AddCheckin(Checkin checkin);
+        //修改记录
+        Task<int> updateCheckin(Checkin checkin);
     }
 }

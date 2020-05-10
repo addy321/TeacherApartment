@@ -11,8 +11,18 @@
 	<body>
 		<div class="container">
 			<div style="margin: 10px;display: inline-block;">
-				<button type="button" class="btn btn-primary glyphicon glyphicon-plus" onclick="$('.Add').removeClass('hidden')">新增</button>
-				<button type="button" class="btn btn-primary glyphicon glyphicon-repeat">刷新</button>
+				<label>房间编号:</label><input type="text"  name="roomNumber"/>
+				<label>大概位置:</label>
+				<select style="margin: 20px 0px;height:25px" id="Types">
+					<option value="-1">所有</option>
+					<option value="0">梅园</option>
+					<option value="1">兰园</option>
+					<option value="2">菊园</option>
+					<option value="3">竹园</option>
+					<option value="4">阴面</option>
+					<option value="5">阳面</option>
+				</select>
+				<input type="button" value="搜索" onclick="search()" />
 			</div>
 			<table class="table table-bordered">
 				<thead>
@@ -24,51 +34,42 @@
 			</table>
 
 		</div>
-
-		<div class="container Add hidden">
-			<div>
-				<h3>添加公寓房间<small>请填写信息内容</small></h3>
-			</div>
-			<input type="email" name="roomNumber" style="margin: 20px 0px; width: 90%;" class="form-control" placeholder="房间编号">
-			<select class="form-control"  style="margin: 20px 0px; width: 90%;" id="Types">
-				<option value="0">梅园</option>
-				<option value="1">兰园</option>
-				<option value="2">菊园</option>
-				<option value="3">竹园</option>
-				<option value="4">阴面</option>
-				<option value="5">阳面</option>
-			</select>
-
-			<br />
-			<button type="button" class="btn btn-primary" style="width: 100px;" onclick="Add()">提交</button>
-			<button type="button" class="btn btn-primary" style="width: 100px;" onclick="$('.Add').addClass('hidden')">关闭</button>
-		</div>
+		 
 	</body>
 	<script>
         showData();
         function showData() {
-            $.get("/Home/getRooms", function (data) {
+            $.get("/Home/getRooms", {"status":0}, function (data) {
                 GenerateTable(data, ListTitle, ListFeatures, ListAttributes)
-        });
+			});
         }
 		var ListTitle=['编号','房间编号','大概位置','状态','操作']
-		var ListFeatures = [{ 'del': '删除' }]
+        var ListFeatures = [{ 'destine': '预定' }]
         var ListAttributes = { 'types': ["梅园", "兰园", "菊园", "竹园", "阴面", "阳面"],'status':["空宿舍","已出租"] }
 
 
-        function Add() {
+		function search() {
+            var roomNumber = $("input[name='roomNumber']").val().trim()
+			var Types = $("#Types").val()
+			$.get("/Home/getRooms", { "roomNumber": roomNumber, "Types": Types }, function (data) {
+                console.log(data)
+                GenerateTable(data, ListTitle, ListFeatures, ListAttributes)
+            });
+        }
+
+        function destine(id) {
             var roomNumber = $("input[name='roomNumber']").val().trim()
             var Types = $("#Types").val()
-            $.post("/Home/AddRooms", { "roomNumber": roomNumber, "Types": Types, "status": 0}, function (data) {
+            $.post("/Home/AddCheckin", { "roomid": id, "enterTime": enterTime}, function (data) {
                 if (data == 1) {
-                    alert("新增成功！")
+                    alert("预约成功！")
                     showData()
                 } else {
                     alert("失败！")
                 }
             });
 		}
-        function del(id) {
+        function destine(id) {
             $.post("/Home/DelRooms",
                 {
                     id: id,

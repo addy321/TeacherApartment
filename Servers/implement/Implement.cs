@@ -29,12 +29,23 @@ namespace Servers.implement
                 return result;
             }
         }
+
+        public async Task<int> AddCheckin(Checkin room)
+        {
+            using (var db = new SqlConnection(LinkSQL))
+            {
+                var sql = $@"INSERT INTO [dbo].[checkin] ([teacherAccount],[roomid],[enterTime],[prove]) VALUES (@teacherAccount,@roomid,@enterTime,@prove)";
+                var result = await db.ExecuteAsync(sql, room);
+                return result;
+            }
+        }
+
         //添加房间
         public async Task<int> AddRooms(Room room)
         {
             using (var db = new SqlConnection(LinkSQL))
             {
-                var sql = $@"INSERT INTO [dbo].[room] ([roomNumber],[Types],[status]) VALUES (@roomNumber,@Types,@sex,@status)";
+                var sql = $@"INSERT INTO [dbo].[room] ([roomNumber],[Types],[status]) VALUES (@roomNumber,@Types,@status)";
                 var result = await db.ExecuteAsync(sql, room);
                 return result;
             }
@@ -70,6 +81,17 @@ namespace Servers.implement
                 return result;
             }
         }
+
+        public async Task<int> DelCheckin(int id)
+        {
+            using (var db = new SqlConnection(LinkSQL))
+            {
+                var sql = $@"delete from [checkin] where id='{id}'";
+                var result = await db.ExecuteAsync(sql);
+                return result;
+            }
+        }
+
         //删除房间
         public async Task<int> DelRooms(int id)
         {
@@ -119,16 +141,65 @@ namespace Servers.implement
                 }
             } 
         }
-        //所有房间
-        public async Task<List<Room>> getRooms(string roomNumber)
+
+        public async Task<List<Checkin>> getCheckin(Checkin checkin)
         {
             var where = new StringBuilder();
             var sql = new StringBuilder();
-            if (roomNumber != null && roomNumber != "")
-            {
-                where.Append($" and [roomNumber] like '{roomNumber}'");
-            }
 
+             if (checkin.roomid != 0)
+            {
+                where.Append($" and [roomid] = '{checkin.roomid}'");
+            }
+            else if (checkin.teacherAccount != "" && checkin.teacherAccount!=null)
+            {
+                where.Append($" and [teacherAccount] = '{checkin.teacherAccount}'");
+            }
+            else if (checkin.prove != 0)
+            {
+                where.Append($" and [prove] = '{checkin.prove}'");
+            }
+            sql.Append($@"select * from checkin where 1=1 {where}");
+
+            using (var db = new SqlConnection(LinkSQL))
+            {
+                try
+                {
+                    using (var multi = await db.QueryMultipleAsync(sql.ToString()))
+                    {
+                        var datalist = multi.Read<Checkin>().ToList();
+                        return datalist;
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            };
+        }
+
+        //所有房间
+        public async Task<List<Room>> getRooms(Room room)
+        {
+            var where = new StringBuilder();
+            var sql = new StringBuilder();
+            
+             if (room.id != 0)
+            {
+                where.Append($" and [id] = '{room.id}'");
+            }
+            else if (room.status != -1)
+            {
+                where.Append($" and [status] = '{room.status}'");
+            }
+            else if (room.Types != -1)
+            {
+                where.Append($" and [Types] = '{room.Types}'");
+            }
+            else if (room.roomNumber != null && room.roomNumber!="")
+            {
+                where.Append($" and [Types] = '{room.roomNumber}'");
+            }
             sql.Append($@"select * from room where 1=1 {where}");
 
             using (var db = new SqlConnection(LinkSQL))
@@ -195,6 +266,17 @@ namespace Servers.implement
                 return result;
             }
         }
+
+        public async Task<int> updateCheckin(Checkin checkin)
+        {
+            using (var db = new SqlConnection(LinkSQL))
+            {
+                var sql = $@"UPDATE  [dbo].[room] SET [prove]=@prove where id=@id";
+                var result = await db.ExecuteAsync(sql, checkin);
+                return result;
+            }
+        }
+
         //修改房间
         public async Task<int> updateRooms(Room room)
         {

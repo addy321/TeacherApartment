@@ -640,27 +640,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\.netItem\\TeacherApartment\\Servers\\Servers.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Servers\\Servers.csproj",
       "projectName": "Servers",
-      "projectPath": "D:\\.netItem\\TeacherApartment\\Servers\\Servers.csproj",
+      "projectPath": "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Servers\\Servers.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "D:\\.netItem\\TeacherApartment\\Servers\\obj\\",
+      "outputPath": "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Servers\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -672,8 +665,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\.netItem\\TeacherApartment\\Model\\Model.csproj": {
-              "projectPath": "D:\\.netItem\\TeacherApartment\\Model\\Model.csproj"
+            "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Model\\Model.csproj": {
+              "projectPath": "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Model\\Model.csproj"
             }
           }
         }

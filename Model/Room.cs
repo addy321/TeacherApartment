@@ -8,7 +8,7 @@ namespace Model
     {
         public int id { get; set; }
         public string roomNumber { get; set; }
-        public int Types { get; set; }
-        public int status { get; set; }
+        public int Types { get; set; } = -1;
+        public int status { get; set; } = -1;
     }
 }

@@ -10,3 +10,15 @@ D:\.netItem\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.pdb
 D:\.netItem\TeacherApartment\Servers\bin\Debug\netcoreapp3.1\Model.dll
 D:\.netItem\TeacherApartment\Servers\bin\Debug\netcoreapp3.1\Model.pdb
 D:\.netItem\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.csproj.CopyComplete
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Servers\bin\Debug\netcoreapp3.1\Servers.deps.json
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Servers\bin\Debug\netcoreapp3.1\Servers.dll
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Servers\bin\Debug\netcoreapp3.1\Servers.pdb
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Servers\bin\Debug\netcoreapp3.1\Model.dll
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Servers\bin\Debug\netcoreapp3.1\Model.pdb
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.csproj.CopyComplete
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.dll
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Servers\obj\Debug\netcoreapp3.1\Servers.pdb

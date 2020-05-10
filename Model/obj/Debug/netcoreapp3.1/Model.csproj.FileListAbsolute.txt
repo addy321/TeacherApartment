@@ -7,3 +7,12 @@ D:\.netItem\TeacherApartment\Model\obj\Debug\netcoreapp3.1\Model.AssemblyInfoInp
 D:\.netItem\TeacherApartment\Model\obj\Debug\netcoreapp3.1\Model.AssemblyInfo.cs
 D:\.netItem\TeacherApartment\Model\obj\Debug\netcoreapp3.1\Model.dll
 D:\.netItem\TeacherApartment\Model\obj\Debug\netcoreapp3.1\Model.pdb
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Model\bin\Debug\netcoreapp3.1\Model.deps.json
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Model\bin\Debug\netcoreapp3.1\Model.dll
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Model\bin\Debug\netcoreapp3.1\Model.pdb
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Model\obj\Debug\netcoreapp3.1\Model.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Model\obj\Debug\netcoreapp3.1\Model.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Model\obj\Debug\netcoreapp3.1\Model.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Model\obj\Debug\netcoreapp3.1\Model.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Model\obj\Debug\netcoreapp3.1\Model.dll
+C:\Users\Administrator\Desktop\xm\.net\TeacherApartment\Model\obj\Debug\netcoreapp3.1\Model.pdb
