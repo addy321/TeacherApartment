@@ -44,5 +44,10 @@ namespace Servers
         Task<int> AddCheckin(Checkin checkin);
         //修改记录
         Task<int> updateCheckin(Checkin checkin);
+
+        //查询房间人数是否两个人
+        Task<int> getOccupancy(int roomid);
+        //查询房间中的人的性别
+        Task<int> getSex(int roomid);
     }
 }

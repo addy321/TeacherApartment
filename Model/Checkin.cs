@@ -12,5 +12,7 @@ namespace Model
         public string enterTime { get; set; }
         public int prove { get; set; }
 
+        public string scheduledTime { get; set; }
+
     }
 }

@@ -1,89 +1,164 @@
 ﻿<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css" />
-	<script type="text/javascript" src="/js/jQuery.js" ></script>
-	<script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.js" ></script>
-	<script type="text/javascript" src="/js/table.js" ></script>
-	<body>
-		<div class="container">
-			<div style="margin: 10px;display: inline-block;">
-				<label>房间编号:</label><input type="text"  name="roomNumber"/>
-				<label>大概位置:</label>
-				<select style="margin: 20px 0px;height:25px" id="Types">
-					<option value="-1">所有</option>
-					<option value="0">梅园</option>
-					<option value="1">兰园</option>
-					<option value="2">菊园</option>
-					<option value="3">竹园</option>
-					<option value="4">阴面</option>
-					<option value="5">阳面</option>
-				</select>
-				<input type="button" value="搜索" onclick="search()" />
-			</div>
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css" />
 
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script type="text/javascript" src="/js/jQuery.js"></script>
+<script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/table.js"></script>
+
+<script src="https://cdn.bootcss.com/moment.js/2.24.0/moment-with-locales.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<body>
+	<div class="container">
+		<div style="margin: 10px;display: inline-block;">
+			<label>房间编号:</label><input type="text" name="roomNumber" />
+			<label>大概位置:</label>
+			<select style="margin: 20px 0px;height:25px" id="Types">
+				<option value="-1">所有</option>
+				<option value="0">梅园</option>
+				<option value="1">兰园</option>
+				<option value="2">菊园</option>
+				<option value="3">竹园</option>
+				<option value="4">阴面</option>
+				<option value="5">阳面</option>
+			</select>
+			<input type="button" value="搜索" onclick="search()" />
 		</div>
-		 
-	</body>
-	<script>
-        showData();
-        function showData() {
-            $.get("/Home/getRooms", {"status":0}, function (data) {
-                GenerateTable(data, ListTitle, ListFeatures, ListAttributes)
-			});
-        }
-		var ListTitle=['编号','房间编号','大概位置','状态','操作']
-        var ListFeatures = [{ 'destine': '预定' }]
-        var ListAttributes = { 'types': ["梅园", "兰园", "菊园", "竹园", "阴面", "阳面"],'status':["空宿舍","已出租"] }
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+
+	</div>
+	<div class="container Add hidden">
+		<div>
+			<h3>申请公寓<small>请选择入住时间</small></h3>
+		</div>
+		<div class="row">
+			<div class='col-sm-6'>
+				<div class="form-group">
+					<label>选择日期：</label>
+					<!--指定 date标记-->
+					<div class='input-group date' id='datetimepicker1'>
+						<input type='text' class="form-control" name="enterTime"/>
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<button type="button" class="btn btn-primary" style="width: 100px;" id="add">提交</button>
+		<button type="button" class="btn btn-primary" style="width: 100px;" onclick="$('.Add').addClass('hidden')">关闭</button>
+	</div>
+</body>
+<script>
+	showData();
+	function showData() {
+		$.get("/Home/getRooms", { "status": 0 }, function (data) {
+			GenerateTable(data, ListTitle, ListFeatures, ListAttributes)
+		});
+	}
+	var ListTitle = ['编号', '房间编号', '大概位置', '状态', '操作']
+	var ListFeatures = [{ 'destine': '预定' }]
+	var ListAttributes = { 'types': ["梅园", "兰园", "菊园", "竹园", "阴面", "阳面"], 'status': ["空宿舍", "已出租"] }
 
 
-		function search() {
-            var roomNumber = $("input[name='roomNumber']").val().trim()
-			var Types = $("#Types").val()
-			$.get("/Home/getRooms", { "roomNumber": roomNumber, "Types": Types }, function (data) {
-                console.log(data)
-                GenerateTable(data, ListTitle, ListFeatures, ListAttributes)
-            });
-        }
+	function search() {
+		var roomNumber = $("input[name='roomNumber']").val().trim()
+		var Types = $("#Types").val()
+		$.get("/Home/getRooms", { "roomNumber": roomNumber, "Types": Types }, function (data) {
+			console.log(data)
+			GenerateTable(data, ListTitle, ListFeatures, ListAttributes)
+		});
+	}
 
-        function destine(id) {
-            var roomNumber = $("input[name='roomNumber']").val().trim()
-            var Types = $("#Types").val()
-            $.post("/Home/AddCheckin", { "roomid": id, "enterTime": enterTime}, function (data) {
-                if (data == 1) {
-                    alert("预约成功！")
-                    showData()
-                } else {
-                    alert("失败！")
-                }
-            });
+
+	function destine(id) {
+		$('.Add').removeClass('hidden')
+		$("#add").click(function () {
+			var enterTime = $("input[name='enterTime']").val()
+            if (tab(getTime(), enterTime)) {
+                $.post("/Home/AddCheckin", { "roomid": id, "enterTime": enterTime }, function (data) {
+					if (data == 1) {
+						alert("预约成功！")
+						showData()
+					} else {
+						alert("失败！")
+					}
+				});
+			} else {
+				alert("不能小于当前时间")
+			}
+
+		})
+	}
+
+	function getTime() {
+		// 获取当前日期
+		var date = new Date();
+
+		// 获取当前月份
+		var nowMonth = date.getMonth() + 1;
+
+		// 获取当前是几号
+		var strDate = date.getDate();
+
+		// 添加分隔符“-”
+		var seperator = "-";
+
+		// 对月份进行处理，1-9月在前面添加一个“0”
+		if (nowMonth >= 1 && nowMonth <= 9) {
+			nowMonth = "0" + nowMonth;
 		}
-        function destine(id) {
-            $.post("/Home/DelRooms",
-                {
-                    id: id,
-                },
-                function (data, status) {
-                    if (data == 1) {
-                        alert("删除成功！")
-                        showData()
-                    } else {
-                        alert("删除失败！")
-                    }
-                });
-        }
-	</script>
+
+		// 对月份进行处理，1-9号在前面添加一个“0”
+		if (strDate >= 0 && strDate <= 9) {
+			strDate = "0" + strDate;
+		}
+
+		// 最后拼接字符串，得到一个格式为(yyyy-MM-dd)的日期
+		var nowDate = date.getFullYear() + seperator + nowMonth + seperator + strDate;
+		return nowDate;
+	}
+
+	function tab(date1, date2) {
+
+		var oDate1 = new Date(date1);
+
+		var oDate2 = new Date(date2);
+
+		console.log(oDate2)
+		console.log(oDate1)
+
+		if (oDate1.getTime() > oDate2.getTime()) {//转换成毫秒进行比较 
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	$(function () {
+		$('#datetimepicker1').datetimepicker({
+			format: 'YYYY-MM-DD',
+			locale: moment.locale('zh-cn')
+		});
+		/*$('#datetimepicker2').datetimepicker({
+			format: 'YYYY-MM-DD hh:mm',
+			locale: moment.locale('zh-cn')
+		});*/
+	});
+</script>
 </html>
 <style>
 	.Add {

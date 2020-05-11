@@ -34,7 +34,7 @@ namespace Servers.implement
         {
             using (var db = new SqlConnection(LinkSQL))
             {
-                var sql = $@"INSERT INTO [dbo].[checkin] ([teacherAccount],[roomid],[enterTime],[prove]) VALUES (@teacherAccount,@roomid,@enterTime,@prove)";
+                var sql = $@"INSERT INTO [dbo].[checkin] ([teacherAccount],[roomid],[enterTime],[prove],[scheduledTime]) VALUES (@teacherAccount,@roomid,@enterTime,@prove,@scheduledTime)";
                 var result = await db.ExecuteAsync(sql, room);
                 return result;
             }
@@ -178,6 +178,22 @@ namespace Servers.implement
             };
         }
 
+        public async Task<int> getOccupancy(int roomid)
+        {
+            using (var db = new SqlConnection(LinkSQL))
+            {
+                try
+                {
+                    var count = await db.QueryFirstOrDefaultAsync<int>("select COUNT(*) from [checkin] where prove=1 and roomid='"+ roomid+"'" );
+                    return count;
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+        }
+
         //所有房间
         public async Task<List<Room>> getRooms(Room room)
         {
@@ -217,6 +233,15 @@ namespace Servers.implement
                     throw e;
                 }
             };
+        }
+
+        public async Task<int> getSex(int roomid)
+        {
+            using (var db = new SqlConnection(LinkSQL))
+            {
+                var result = await db.QuerySingleOrDefaultAsync<int>($@"select t.sex from [checkin] as c INNER JOIN  teacher as t on c.teacherAccount=t.account where c.roomid='{roomid}' and  prove=1");
+                return result;
+            }
         }
 
         public async Task<Teacher> GetTeacher(string accout)
@@ -280,9 +305,22 @@ namespace Servers.implement
         //修改房间
         public async Task<int> updateRooms(Room room)
         {
+            var up = new StringBuilder();
+            if (room.roomNumber!=null && room.roomNumber != "")
+            {
+                up.Append($"[roomNumber]=@roomNumber, ");
+            }
+            else if (room.Types != -1)
+            {
+                up.Append($"[Types]=@Types, ");
+            }
+            else if (room.status != -1)
+            {
+                up.Append($"[status]=@status, ");
+            }
             using (var db = new SqlConnection(LinkSQL))
             {
-                var sql = $@"UPDATE  [dbo].[room] SET [roomNumber]=@roomNumber,[Types]=@Types,[status]=@status where id=@id";
+                var sql = $@"UPDATE  [dbo].[room] SET {up} where id=@id";
                 var result = await db.ExecuteAsync(sql, room);
                 return result;
             }

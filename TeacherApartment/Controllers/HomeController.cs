@@ -196,10 +196,35 @@ namespace TeacherApartment.Controllers
         [HttpPost]
         public async Task<JsonResult> AddCheckin(Checkin checkin)
         {
-            checkin.teacherAccount = GetSession("username");
-            checkin.prove = 1;
-            var result = await _interfacel.AddCheckin(checkin);
+            var result = new object();
+            Teacher teacher = await _interfacel.GetTeacher(GetSession("username"));
+            int sex = await _interfacel.getSex(checkin.roomid);
+            if (teacher.sex == sex)
+            {
+                checkin.teacherAccount = GetSession("username");
+                checkin.prove = 1;
+                checkin.scheduledTime = DateTime.Now.ToString("yyyy-MM-dd");
+                var res = await _interfacel.AddCheckin(checkin);
+                if (res == 1)
+                {
+                    var occupancy = await _interfacel.getOccupancy(checkin.roomid);
+                    if (occupancy == 2)
+                    {
+                        Room room = new Room();
+                        room.status = 1;
+                        room.Types = -1;
+                        room.id = checkin.roomid;
+                        await _interfacel.updateRooms(room);
+                    }
+                }
+                result = new String("预约成功！");
+            }
+            else
+            {
+                result=new String("与上一个教师性别 不同不能入住");
+            }
             return Json(result);
+            
         }
 
         [HttpPost]
