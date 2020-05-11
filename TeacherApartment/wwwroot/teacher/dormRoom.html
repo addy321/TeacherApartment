@@ -46,10 +46,20 @@
 		<div class="row">
 			<div class='col-sm-6'>
 				<div class="form-group">
-					<label>选择日期：</label>
+					<label>入住日期：</label>
 					<!--指定 date标记-->
 					<div class='input-group date' id='datetimepicker1'>
-						<input type='text' class="form-control" name="enterTime"/>
+						<input type='text' class="form-control" name="enterTime" />
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>结束日期：</label>
+					<!--指定 date标记-->
+					<div class='input-group date' id='datetimepicker2'>
+						<input type='text' class="form-control" name="liveTime" />
 						<span class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar"></span>
 						</span>
@@ -65,7 +75,7 @@
 <script>
 	showData();
 	function showData() {
-		$.get("/Home/getRooms", { "status": 0 }, function (data) {
+		$.get("/Home/getRooms", function (data) {
 			GenerateTable(data, ListTitle, ListFeatures, ListAttributes)
 		});
 	}
@@ -85,21 +95,26 @@
 
 
 	function destine(id) {
-		$('.Add').removeClass('hidden')
-		$("#add").click(function () {
-			var enterTime = $("input[name='enterTime']").val()
-            if (tab(getTime(), enterTime)) {
-				$.post("/Home/AddCheckin", { "roomid": id, "enterTime": enterTime }, function (data) {
-                    console.log(data)
-                    alert(data)
-					showData()
-					
-				});
+        $.get("/Home/GetRoom", { "id": id}, function (data) {
+			if (data.status == 0) {
+				$('.Add').removeClass('hidden')
+				$("#add").click(function () {
+					var enterTime = $("input[name='enterTime']").val()
+                    var liveTime = $("input[name='liveTime']").val()
+					if (tab(getTime(), enterTime)) {
+                        $.post("/Home/AddCheckin", { "roomid": id, "enterTime": enterTime, "roomNummber": data.roomNumber, "liveTime": liveTime }, function (data) {
+							console.log(data)
+							alert(data)
+							showData()
+						});
+					} else {
+						alert("不能小于当前时间")
+					}
+				})
 			} else {
-				alert("不能小于当前时间")
-			}
-
-		})
+				alert("已被预约！")
+            }
+        });
 	}
 
 	function getTime() {
@@ -151,6 +166,10 @@
 			format: 'YYYY-MM-DD',
 			locale: moment.locale('zh-cn')
 		});
+        $('#datetimepicker2').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
 		/*$('#datetimepicker2').datetimepicker({
 			format: 'YYYY-MM-DD hh:mm',
 			locale: moment.locale('zh-cn')

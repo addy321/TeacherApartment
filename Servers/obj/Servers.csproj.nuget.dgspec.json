@@ -1,21 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Servers\\Servers.csproj": {}
+    "D:\\.netItem\\TeacherApartment\\Servers\\Servers.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Model\\Model.csproj": {
+    "D:\\.netItem\\TeacherApartment\\Model\\Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Model\\Model.csproj",
+        "projectUniqueName": "D:\\.netItem\\TeacherApartment\\Model\\Model.csproj",
         "projectName": "Model",
-        "projectPath": "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Model\\Model.csproj",
+        "projectPath": "D:\\.netItem\\TeacherApartment\\Model\\Model.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Model\\obj\\",
+        "outputPath": "D:\\.netItem\\TeacherApartment\\Model\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -56,18 +61,23 @@
         }
       }
     },
-    "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Servers\\Servers.csproj": {
+    "D:\\.netItem\\TeacherApartment\\Servers\\Servers.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Servers\\Servers.csproj",
+        "projectUniqueName": "D:\\.netItem\\TeacherApartment\\Servers\\Servers.csproj",
         "projectName": "Servers",
-        "projectPath": "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Servers\\Servers.csproj",
+        "projectPath": "D:\\.netItem\\TeacherApartment\\Servers\\Servers.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Servers\\obj\\",
+        "outputPath": "D:\\.netItem\\TeacherApartment\\Servers\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -79,8 +89,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Model\\Model.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Desktop\\xm\\.net\\TeacherApartment\\Model\\Model.csproj"
+              "D:\\.netItem\\TeacherApartment\\Model\\Model.csproj": {
+                "projectPath": "D:\\.netItem\\TeacherApartment\\Model\\Model.csproj"
               }
             }
           }

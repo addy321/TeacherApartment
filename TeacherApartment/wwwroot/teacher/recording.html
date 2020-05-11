@@ -15,9 +15,17 @@
 			<table class="table table-bordered">
 				<thead>
 					<tr>
+						<th>编号</th>
+						<th>入住时间</th>
+						<th>是否过期</th>
+						<th>预约时间</th>
+						<th>房间编号</th>
+						<th>入住结束时间</th>
+						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
+
 				</tbody>
 			</table>
 
@@ -27,15 +35,18 @@
 	<script>
         showData();
         function showData() {
-            $.get("/Home/getCheckin", function (data) {
-                GenerateTable(data, ListTitle, ListFeatures, ListAttributes)
-        });
-        }
-		var ListTitle = ['编号', '教师账号', '房间id', '入住时间', '是否过期', '预约时间','操作']
-        var ListFeatures = [{ 'del': '删除' }, { 'Add': '入住' }]
-        var ListAttributes = { 'prove': ["", "有效", "过期"]}
-
-
+			$.get("/Home/getCheckin", function (data) {
+                console.log(data)
+				var tbody=""
+				for (var i = 0; i < data.length; i++) {
+                    tbody += "<tr><td>" + data[i].id + "</td><td>" + data[i].enterTime + "</td><td>" + (data[i].prove == 1 ? "有效" : "已过期") + "</td>"
+                    tbody += "<td>" + data[i].scheduledTime + "</td><td>" + data[i].roomNummber + "</td><td>" + data[i].liveTime + "</td>"
+					tbody += "<td>" + (data[i].prove == 1 ? "不可删除" : "<a href='#' onclick='del(" + data[i].id + ")'>删除</a>")
+                    tbody += "||" + (data[i].islive == 2 ? "已入住" : "<a href = '#' onclick = 'add(" + data[i].id + ")'> 入住</a>")+"</td></tr>"
+				}
+                $("tbody").html(tbody)
+			});
+        } 
         function del(id) {
             $.post("/Home/DelCheckin",
                 {

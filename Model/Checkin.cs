@@ -11,8 +11,9 @@ namespace Model
         public int roomid { get; set; }
         public string enterTime { get; set; }
         public int prove { get; set; }
-
         public string scheduledTime { get; set; }
-
+        public string roomNummber { get; set; }
+        public int islive { get; set; }
+        public string liveTime { get; set; }
     }
 }

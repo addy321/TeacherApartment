@@ -30,12 +30,12 @@ namespace Servers.implement
             }
         }
 
-        public async Task<int> AddCheckin(Checkin room)
+        public async Task<int> AddCheckin(Checkin checkin)
         {
             using (var db = new SqlConnection(LinkSQL))
             {
-                var sql = $@"INSERT INTO [dbo].[checkin] ([teacherAccount],[roomid],[enterTime],[prove],[scheduledTime]) VALUES (@teacherAccount,@roomid,@enterTime,@prove,@scheduledTime)";
-                var result = await db.ExecuteAsync(sql, room);
+                var sql = $@"INSERT INTO [dbo].[checkin] ([teacherAccount],[roomid],[enterTime],[prove],[scheduledTime],[roomNummber],[islive],[liveTime]) VALUES (@teacherAccount,@roomid,@enterTime,@prove,@scheduledTime,@roomNummber,@islive,@liveTime)";
+                var result = await db.ExecuteAsync(sql, checkin);
                 return result;
             }
         }
@@ -146,12 +146,7 @@ namespace Servers.implement
         {
             var where = new StringBuilder();
             var sql = new StringBuilder();
-
-             if (checkin.roomid != 0)
-            {
-                where.Append($" and [roomid] = '{checkin.roomid}'");
-            }
-            else if (checkin.teacherAccount != "" && checkin.teacherAccount!=null)
+             if (checkin.teacherAccount != "" && checkin.teacherAccount!=null)
             {
                 where.Append($" and [teacherAccount] = '{checkin.teacherAccount}'");
             }
@@ -191,6 +186,15 @@ namespace Servers.implement
                 {
                     throw e;
                 }
+            }
+        }
+
+        public async Task<Room> GetRoom(int id)
+        {
+            using (var db = new SqlConnection(LinkSQL))
+            {
+                var result = await db.QuerySingleOrDefaultAsync<Room>($@"select * from  [dbo].[room] where id='{id}'");
+                return result;
             }
         }
 

@@ -36,6 +36,8 @@ namespace Servers
         Task<int> AddRooms(Room room);
         //修改房间
         Task<int> updateRooms(Room room);
+        //查询单个房间
+        Task<Room> GetRoom(int id);
         //所有住房记录
         Task<List<Checkin>> getCheckin(Checkin checkin);
         //删除记录
@@ -49,5 +51,6 @@ namespace Servers
         Task<int> getOccupancy(int roomid);
         //查询房间中的人的性别
         Task<String> getSex(int roomid);
+         
     }
 }

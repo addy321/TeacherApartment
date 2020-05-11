@@ -59,7 +59,7 @@
         function Add() {
             var roomNumber = $("input[name='roomNumber']").val().trim()
             var Types = $("#Types").val()
-            $.post("/Home/AddRooms", { "roomNumber": roomNumber, "Types": Types, "status": 0}, function (data) {
+            $.post("/Home/AddRooms", { "roomNummber": roomNummber, "Types": Types, "status": 0}, function (data) {
                 if (data == 1) {
                     alert("新增成功！")
                     showData()

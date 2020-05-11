@@ -30,9 +30,9 @@
                 GenerateTable(data, ListTitle, ListFeatures, ListAttributes)
         });
         }
-		var ListTitle = ['编号', '教师账号', '房间id', '入住时间', '是否过期', '预约时间']
+		var ListTitle = ['编号', '教师账号', '房间id', '入住时间', '是否过期', '预约时间','房间编号','是否入住','入住结束时间']
 		var ListFeatures = null
-        var ListAttributes = { 'prove': ["", "有效", "过期"]}
+        var ListAttributes = { 'prove': ["", "有效", "过期"], 'islive': ["", "已入住", "未入住"]}
 
 
         function del(id) {

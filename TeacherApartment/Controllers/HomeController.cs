@@ -185,7 +185,12 @@ namespace TeacherApartment.Controllers
             var result = await _interfacel.updateRooms(room);
             return Json(result);
         }
-
+        [HttpGet]
+        public async Task<JsonResult> GetRoom(int id)
+        {
+            var result = await _interfacel.GetRoom(id);
+            return Json(result);
+        }
         [HttpGet]
         public async Task<JsonResult> getCheckin(Checkin checkin)
         {
@@ -197,36 +202,41 @@ namespace TeacherApartment.Controllers
         public async Task<JsonResult> AddCheckin(Checkin checkin)
         {
             var result = new object();
-            Teacher teacher = await _interfacel.GetTeacher(GetSession("username"));
-            String sex = await _interfacel.getSex(checkin.roomid); 
-            if (int.Parse(sex)<0 || teacher.sex == int.Parse(sex))
-            {
-                checkin.teacherAccount = GetSession("username");
-                checkin.prove = 1;
-                checkin.scheduledTime = DateTime.Now.ToString("yyyy-MM-dd");
-                var res = await _interfacel.AddCheckin(checkin);
-                if (res == 1)
+            var checkins = await _interfacel.getCheckin(checkin);
+            if (checkins!= null){
+                Teacher teacher = await _interfacel.GetTeacher(GetSession("username"));
+                String sex = await _interfacel.getSex(checkin.roomid);
+                if (int.Parse(sex) < 0 || teacher.sex == int.Parse(sex))
                 {
-                    var occupancy = await _interfacel.getOccupancy(checkin.roomid);
-                    if (occupancy == 2)
+                    checkin.teacherAccount = GetSession("username");
+                    checkin.prove = 1;
+                    checkin.islive = 1;
+                    checkin.scheduledTime = DateTime.Now.ToString("yyyy-MM-dd");
+                    var res = await _interfacel.AddCheckin(checkin);
+                    if (res == 1)
                     {
-                        Room room = new Room();
-                        room.status = 1;
-                        room.Types = -1;
-                        room.id = checkin.roomid;
-                        await _interfacel.updateRooms(room);
+                        var occupancy = await _interfacel.getOccupancy(checkin.roomid);
+                        if (occupancy == 2)
+                        {
+                            Room room = new Room();
+                            room.status = 1;
+                            room.Types = -1;
+                            room.id = checkin.roomid;
+                            await _interfacel.updateRooms(room);
+                        }
                     }
+                    result = new String("预约成功！");
                 }
-                result = new String("预约成功！");
+                else
+                {
+                    result = new String("与上一个教师性别不同,不能入住");
+                }
             }
             else
             {
-                result = new String("与上一个教师性别不同,不能入住");
+                result = new String("你已经预约过房间！");
             }
-            
-           
             return Json(result);
-            
         }
 
 
