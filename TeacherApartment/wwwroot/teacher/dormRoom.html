@@ -89,13 +89,11 @@
 		$("#add").click(function () {
 			var enterTime = $("input[name='enterTime']").val()
             if (tab(getTime(), enterTime)) {
-                $.post("/Home/AddCheckin", { "roomid": id, "enterTime": enterTime }, function (data) {
-					if (data == 1) {
-						alert("预约成功！")
-						showData()
-					} else {
-						alert("失败！")
-					}
+				$.post("/Home/AddCheckin", { "roomid": id, "enterTime": enterTime }, function (data) {
+                    console.log(data)
+                    alert(data)
+					showData()
+					
 				});
 			} else {
 				alert("不能小于当前时间")

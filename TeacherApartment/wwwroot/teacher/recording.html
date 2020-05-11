@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css" />
+	<script type="text/javascript" src="/js/jQuery.js" ></script>
+	<script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.js" ></script>
+	<script type="text/javascript" src="/js/table.js" ></script>
+	<body>
+		<div class="container">
+			<div style="margin: 10px;display: inline-block;">
+			</div>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+
+		</div>
+		 
+	</body>
+	<script>
+        showData();
+        function showData() {
+            $.get("/Home/getCheckin", function (data) {
+                GenerateTable(data, ListTitle, ListFeatures, ListAttributes)
+        });
+        }
+		var ListTitle = ['编号', '教师账号', '房间id', '入住时间', '是否过期', '预约时间','操作']
+        var ListFeatures = [{ 'del': '删除' }, { 'Add': '入住' }]
+        var ListAttributes = { 'prove': ["", "有效", "过期"]}
+
+
+        function del(id) {
+            $.post("/Home/DelCheckin",
+                {
+                    id: id,
+                },
+                function (data, status) {
+                    if (data == 1) {
+                        alert("删除成功！")
+                        showData()
+                    } else {
+                        alert("删除失败！")
+                    }
+                });
+        }
+	</script>
+</html>
+<style>
+	.Add {
+		position: absolute;
+		left: 50%; /**左边50%**/
+		top: 15%; /**顶部50%**/
+		margin-left: -200px; /**左移-50%**/
+		width: 400px;
+		border: 1px #cdb6b6 double;
+		border-radius: 15px;
+		background-color: #FFFFFF;
+		padding: 20px;
+	}
+</style>

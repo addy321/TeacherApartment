@@ -235,12 +235,12 @@ namespace Servers.implement
             };
         }
 
-        public async Task<int> getSex(int roomid)
+        public async Task<String> getSex(int roomid)
         {
             using (var db = new SqlConnection(LinkSQL))
             {
-                var result = await db.QuerySingleOrDefaultAsync<int>($@"select t.sex from [checkin] as c INNER JOIN  teacher as t on c.teacherAccount=t.account where c.roomid='{roomid}' and  prove=1");
-                return result;
+                var result = await db.QuerySingleOrDefaultAsync<String>($@"select t.sex from [checkin] as c INNER JOIN  teacher as t on c.teacherAccount=t.account where c.roomid='{roomid}' and  prove=1");
+                return result==null?"-1":result;
             }
         }
 

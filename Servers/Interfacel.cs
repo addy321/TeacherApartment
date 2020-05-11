@@ -48,6 +48,6 @@ namespace Servers
         //查询房间人数是否两个人
         Task<int> getOccupancy(int roomid);
         //查询房间中的人的性别
-        Task<int> getSex(int roomid);
+        Task<String> getSex(int roomid);
     }
 }

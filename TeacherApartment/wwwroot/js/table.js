@@ -27,14 +27,17 @@ function GenerateTable(JsonListDate,ListTitle,ListFeatures,Listmatch){
                 }
 				
 			}
-			var Features="<td>"
-			for(var featureobj in ListFeatures){
-				for(var obj in ListFeatures[featureobj]){
-					Features += '<a href="#" onclick=' + obj + '(' + data["id"]+')>'+ListFeatures[featureobj][obj]+'</a>'
+			if (ListFeatures != null) {
+				var Features = "<td>"
+				for (var featureobj in ListFeatures) {
+					for (var obj in ListFeatures[featureobj]) {
+						Features += '<a href="#" onclick=' + obj + '(' + data["id"] + ')>' + ListFeatures[featureobj][obj] + '</a>'
+					}
 				}
-			}
-			Features+='</td>'
-			tbody+=Features
+				Features += '</td>'
+				tbody += Features
+            }
+			
 		})
 	}else{
 		tbody+="<tr><td>暂无数据</td></tr>"

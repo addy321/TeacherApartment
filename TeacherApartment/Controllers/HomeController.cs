@@ -198,8 +198,8 @@ namespace TeacherApartment.Controllers
         {
             var result = new object();
             Teacher teacher = await _interfacel.GetTeacher(GetSession("username"));
-            int sex = await _interfacel.getSex(checkin.roomid);
-            if (teacher.sex == sex)
+            String sex = await _interfacel.getSex(checkin.roomid); 
+            if (int.Parse(sex)<0 || teacher.sex == int.Parse(sex))
             {
                 checkin.teacherAccount = GetSession("username");
                 checkin.prove = 1;
@@ -221,11 +221,14 @@ namespace TeacherApartment.Controllers
             }
             else
             {
-                result=new String("与上一个教师性别 不同不能入住");
+                result = new String("与上一个教师性别不同,不能入住");
             }
+            
+           
             return Json(result);
             
         }
+
 
         [HttpPost]
         public async Task<JsonResult> DelCheckin(int id)
