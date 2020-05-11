@@ -197,7 +197,12 @@ namespace TeacherApartment.Controllers
             var result = await _interfacel.getCheckin(checkin);
             return Json(result);
         }
-
+        [HttpGet]
+        public async Task<JsonResult> getThecheckin(int id)
+        {
+            var result = await _interfacel.GetThecheckin(id);
+            return Json(result);
+        }
         [HttpPost]
         public async Task<JsonResult> AddCheckin(Checkin checkin)
         {
@@ -250,6 +255,13 @@ namespace TeacherApartment.Controllers
         public async Task<JsonResult> updateCheckin(Checkin checkin)
         { 
             var result = await _interfacel.updateCheckin(checkin);
+            return Json(result);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> updateCheckinislive(int id)
+        {
+            var result = await _interfacel.updateCheckinislive(id);
             return Json(result);
         }
     }

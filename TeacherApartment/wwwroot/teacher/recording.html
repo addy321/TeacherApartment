@@ -32,17 +32,24 @@
 		</div>
 		 
 	</body>
-	<script>
-        showData();
-        function showData() {
-			$.get("/Home/getCheckin", function (data) {
+	<script> 
+        getAccount()
+		function getAccount() { 
+            $.get("/Home/getTeacher", function (data) {
+				console.log(data)
+                showData(data.account);
+            });
+        }
+      
+        function showData(account) {
+            $.get("/Home/getCheckin", { "teacherAccount": account } ,function (data) {
                 console.log(data)
 				var tbody=""
 				for (var i = 0; i < data.length; i++) {
                     tbody += "<tr><td>" + data[i].id + "</td><td>" + data[i].enterTime + "</td><td>" + (data[i].prove == 1 ? "有效" : "已过期") + "</td>"
                     tbody += "<td>" + data[i].scheduledTime + "</td><td>" + data[i].roomNummber + "</td><td>" + data[i].liveTime + "</td>"
 					tbody += "<td>" + (data[i].prove == 1 ? "不可删除" : "<a href='#' onclick='del(" + data[i].id + ")'>删除</a>")
-                    tbody += "||" + (data[i].islive == 2 ? "已入住" : "<a href = '#' onclick = 'add(" + data[i].id + ")'> 入住</a>")+"</td></tr>"
+                    tbody += "||" + (data[i].islive == 2 ? "已入住" : "<a href = '#' onclick = 'Checkin(" + data[i].id + ")'> 入住</a>")+"</td></tr>"
 				}
                 $("tbody").html(tbody)
 			});
@@ -55,9 +62,24 @@
                 function (data, status) {
                     if (data == 1) {
                         alert("删除成功！")
-                        showData()
+                        getAccount()
                     } else {
                         alert("删除失败！")
+                    }
+                });
+		}
+
+		function Checkin(id) {
+            $.post("/Home/updateCheckinislive",
+                {
+                    "id": id
+                },
+                function (data) {
+                    if (data == 1) {
+                        alert("成功！")
+                        getAccount()
+                    } else {
+                        alert("失败！")
                     }
                 });
         }

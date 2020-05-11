@@ -1,55 +1,130 @@
 ﻿<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css" />
-	<script type="text/javascript" src="/js/jQuery.js" ></script>
-	<script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.js" ></script>
-	<script type="text/javascript" src="/js/table.js" ></script>
-	<body>
-		<div class="container">
-			<div style="margin: 10px;display: inline-block;">  
-			</div>
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css" />
 
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script type="text/javascript" src="/js/jQuery.js"></script>
+
+<script type="text/javascript" src="/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+
+<script src="https://cdn.bootcss.com/moment.js/2.24.0/moment-with-locales.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<body>
+	<div class="container">
+		<div style="margin: 10px;display: inline-block;">
 		</div>
-	</body>
-	<script>
-        showData();
-        function showData() {
-            $.get("/Home/getCheckin", function (data) {
-                GenerateTable(data, ListTitle, ListFeatures, ListAttributes)
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>教师账号</th>
+					<th>房间id</th>
+					<th>入住时间</th>
+					<th>是否过期</th>
+					<th>预约时间</th>
+					<th>房间编号</th>
+					<th>是否入住</th>
+					<th>入住结束时间</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+	<div class="container Add hidden">
+		<div>
+			<h3>修改公寓入住信息<small>请填写信息内容</small></h3>
+		</div>
+		<div class="row">
+			<div class='col-sm-6'>
+				<div class="form-group">
+					<label>入住结束日期：</label>
+					<!--指定 date标记-->
+					<div class='input-group date' id='datetimepicker1'>
+						<input type='text' class="form-control" name="liveTime" />
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<input type="checkbox" name="male" value="2" onclick="a()" /> 过期
+		<input type="checkbox" name="female" value="1" onclick="b()" /> 未过期
+		<br />
+		<br />
+		<button type="button" class="btn btn-primary" style="width: 100px;" id="update">提交</button>
+		<button type="button" class="btn btn-primary" style="width: 100px;" onclick="$('.Add').addClass('hidden')">关闭</button>
+	</div>
+</body>
+<script>
+	showData();
+
+	function showData() {
+		$.get("/Home/getCheckin", function (data) {
+			console.log(data)
+			var tbody = ""
+			for (var i = 0; i < data.length; i++) {
+				tbody += "<tr><td>" + data[i].id + "</td><td>" + data[i].teacherAccount + "</td><td>" + data[i].roomid + "</td><td>" + data[i].enterTime + "</td><td>" + (data[i].prove == 1 ? "有效" : "已过期") + "</td>"
+				tbody += "<td>" + data[i].scheduledTime + "</td><td>" + data[i].roomNummber + "</td><td>" + (data[i].islive == 1 ? "未住入" : "已住入") + "</td><td>" + data[i].liveTime + "</td>"
+				tbody += "<td><a href='#' onclick='getThe(" + data[i].id + ")'>修改</a></td></tr>"
+			}
+			$("tbody").html(tbody)
+		});
+	}
+
+
+	function getThe(id) {
+		$.get("/Home/getThecheckin", { "id": id }, function (data) {
+            $('.Add').removeClass('hidden')
+            $("input[name='liveTime']").val(data.liveTime)
+            prove = data.prove
+			if (data.prove == 1) {
+				$("input[name='female']").prop('checked', true);
+			} else {
+				$("input[name='male']").prop('checked', true);
+			}
+			$("#update").click(function () {
+				data.prove = prove
+                data.liveTime = $("input[name='liveTime']").val()
+                $.post("/Home/updateCheckin", data, function (data, status) { 
+                        if (data == 1) {
+                            alert("修改成功！")
+                            showData()
+                        } else {
+                            alert("修改失败！")
+                        }
+                    });
+			})
+		})
+	}
+    var prove = -1
+    function a() {
+        $("input[name='female']").prop('checked', false);
+        prove = 1
+    }
+    function b() {
+        $("input[name='male']").prop('checked', false);
+        prove = 2
+    }
+
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
         });
-        }
-		var ListTitle = ['编号', '教师账号', '房间id', '入住时间', '是否过期', '预约时间','房间编号','是否入住','入住结束时间']
-		var ListFeatures = null
-        var ListAttributes = { 'prove': ["", "有效", "过期"], 'islive': ["", "已入住", "未入住"]}
-
-
-        function del(id) {
-            $.post("/Home/DelCheckin",
-                {
-                    id: id,
-                },
-                function (data, status) {
-                    if (data == 1) {
-                        alert("删除成功！")
-                        showData()
-                    } else {
-                        alert("删除失败！")
-                    }
-                });
-        }
-	</script>
+		/*$('#datetimepicker2').datetimepicker({
+			format: 'YYYY-MM-DD hh:mm',
+			locale: moment.locale('zh-cn')
+		});*/
+    });
+</script>
 </html>
 <style>
 	.Add {

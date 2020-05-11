@@ -52,7 +52,7 @@
         });
         }
 		var ListTitle=['编号','房间编号','大概位置','状态','操作']
-		var ListFeatures = [{ 'del': '删除' }]
+        var ListFeatures = [{ 'del': '删除&nbsp&nbsp||', 'update':'&nbsp&nbsp修改为可租' }]
         var ListAttributes = { 'types': ["梅园", "兰园", "菊园", "竹园", "阴面", "阳面"],'status':["空宿舍","已出租"] }
 
 
@@ -68,19 +68,43 @@
                 }
             });
 		}
-        function del(id) {
-            $.post("/Home/DelRooms",
-                {
-                    id: id,
-                },
-                function (data, status) {
-                    if (data == 1) {
-                        alert("删除成功！")
-                        showData()
-                    } else {
-                        alert("删除失败！")
-                    }
-                });
+		function update(id) {
+			var question = confirm("在修改之前请在入住公寓管理查询该房间对应的老师租期已到！是否修改！")
+			if (question) {
+                $.post("/Home/UpdateRoom",
+                    {
+						"id": id,
+						"Types": -1,
+						"status":0
+                    },
+                    function (data, status) {
+                        if (data == 1) {
+                            alert("修改成功！")
+                            showData()
+                        } else {
+                            alert("修改失败！")
+                        }
+                    });
+            }
+        }
+
+		function del(id) {
+			var question = confirm("在删除之前请确定是空房间！是否删除！")
+            if (question) {
+                $.post("/Home/DelRooms",
+                    {
+                        id: id,
+                    },
+                    function (data, status) {
+                        if (data == 1) {
+                            alert("删除成功！")
+                            showData()
+                        } else {
+                            alert("删除失败！")
+                        }
+                    });
+            }
+           
         }
 	</script>
 </html>

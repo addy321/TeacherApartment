@@ -173,6 +173,21 @@ namespace Servers.implement
             };
         }
 
+        public async Task<Checkin> GetThecheckin(int id)
+        {
+            using (var db = new SqlConnection(LinkSQL))
+            {
+                try
+                {
+                    var checkin = await db.QueryFirstOrDefaultAsync<Checkin>("select * from checkin where id = '"+id+"'");
+                    return checkin;
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+        }
         public async Task<int> getOccupancy(int roomid)
         {
             using (var db = new SqlConnection(LinkSQL))
@@ -300,8 +315,18 @@ namespace Servers.implement
         {
             using (var db = new SqlConnection(LinkSQL))
             {
-                var sql = $@"UPDATE  [dbo].[room] SET [prove]=@prove where id=@id";
+                var sql = $@"UPDATE  [dbo].[checkin] SET [prove]=@prove,[islive]=@islive,[liveTime]=@liveTime,[teacherAccount]=@teacherAccount,[roomid]=@roomid,[enterTime]=@enterTime,[scheduledTime]=@scheduledTime,[roomNummber]=@roomNummber where id=@id";
                 var result = await db.ExecuteAsync(sql, checkin);
+                return result;
+            }
+        }
+
+        public async Task<int> updateCheckinislive(int id)
+        {
+            using (var db = new SqlConnection(LinkSQL))
+            {
+                var sql = $@"update checkin set islive=2 where id='{id}'";
+                var result = await db.ExecuteAsync(sql);
                 return result;
             }
         }
@@ -316,11 +341,11 @@ namespace Servers.implement
             }
             else if (room.Types != -1)
             {
-                up.Append($"[Types]=@Types, ");
+                up.Append($"[Types]=@Types,");
             }
             else if (room.status != -1)
             {
-                up.Append($"[status]=@status, ");
+                up.Append($"[status]=@status ");
             }
             using (var db = new SqlConnection(LinkSQL))
             {
